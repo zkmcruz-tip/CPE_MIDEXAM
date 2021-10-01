@@ -1,0 +1,15 @@
+---
+# tasks file for Influx_centos
+
+- name: Install repo for InfluxDB
+  shell: wget https://dl.influxdata.com/influxdb/releases/influxdb-1.8.2.x86_64.rpm
+- name: Install repo for Telegraf
+  shell: wget https://dl.influxdata.com/telegraf/releases/telegraf-1.15.2-1.x86_64.rpm
+- name: Install InfluxDB in CentOS
+  shell: sudo yum localinstall influxdb-1.8.2.x86_64.rpm -y
+- name: Install Telegraf in CentOS
+  shell: sudo yum localinstall telegraf-1.15.2-1.x86_64.rpm
+- name: Start and enable Influx
+  shell: sudo systemctl enable influxdb; sudo systemctl start influxdb
+- name: Start and enable telegraf
+  shell: sudo systemctl enable telegraf; sudo systemctl start telegraf

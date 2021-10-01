@@ -1,0 +1,26 @@
+---
+- name: Get ELK rpm key
+  rpm_key:
+    key: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+    state: present
+  
+- name: Install ELK 7.x rpm repo
+  yum_repository:
+    name: elasticsearch-7.x
+    description: Elasticsearch repository for 7.x packages
+    baseurl: https://artifacts.elastic.co/packages/7.x/yum
+    gpgcheck: True
+    gpgkey: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+- name: Install Java
+  yum:
+    name: java-11-openjdk-devel
+    state: present
+    update_cache: True
+- name: Install ELK
+  yum:
+    name: 
+      - elasticsearch
+      - kibana
+      - logstash
+    state: latest
+    update_cache: True

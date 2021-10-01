@@ -1,0 +1,12 @@
+---
+# tasks file for H-P-M_ubuntu
+- name: Install httpd
+  apt: 
+    name: apache2
+    state: latest
+- name: Install php
+  apt:
+    name: php
+    state: latest
+- name: Install mariadb-server
+  shell: sudo apt install mariadb-server

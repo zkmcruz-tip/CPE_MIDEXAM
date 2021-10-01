@@ -1,0 +1,27 @@
+---
+# tasks file for Influx_ubuntu
+- name: Install Telegraf APT Key
+  apt_key:
+    url: https://repos.influxdata.com/influxdb.key
+    keyring: /etc/apt/trusted.gpg.d/telegraf.gpg
+    state: present
+- name: Install Telegraf APT Repo
+  apt_repository:
+    repo: "deb https://repos.influxdata.com/ubuntu {{ ansible_distribution_release }} stable"
+    state: present
+    filename: telegraf
+
+- name: Install telegraf
+  apt:
+    name: telegraf
+    state: present
+    update_cache: yes
+- name: Install Influxdb
+  apt:
+    name: influxdb
+    state: present
+    update_cache: yes
+- name: Enable and Start Influxdb
+  shell: sudo systemctl enable influxdb; sudo systemctl start influxdb
+- name: Enable and Start Telegraf
+  shell: sudo systemctl enable telegraf; sudo systemctl start telegraf

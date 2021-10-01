@@ -1,0 +1,9 @@
+# ELK STACK CONFIGURATIONS FILES
+#
+elasticsearch_host: localhost
+systemd_src: elasticTimeout.conf
+
+kibana_host: localhost
+
+logstash_conf: logstash.conf
+

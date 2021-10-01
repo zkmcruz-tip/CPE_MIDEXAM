@@ -1,0 +1,79 @@
+---
+- name: Install ELK for Debian or RedHat distributions
+  hosts: all
+  become: yes
+  tasks:
+    - name: Include all the varibles from config.yaml
+      tags: variables
+      include_vars:
+        file: config.yaml
+    - name: Install ELK for Ubuntu VM
+      tags: elk_ubuntu
+      import_role:
+        name: Elk_ubuntu
+      when: ansible_facts['os_family'] == "Debian"
+    - name: Install ELK for CentOS VM
+      tags: elk_centos
+      import_role:
+        name: Elk_centos
+      when: ansible_facts['os_family'] == "RedHat"
+
+    - name: Configure ELK Stack for Debian and RedHat
+      tags: conf_elk
+      import_role:
+        name: Configure_ELK
+
+    - name: Install Nagios for Ubuntu
+      tags: nagios_ubuntu
+      import_role:
+        name: Nagios_ubuntu
+      when: ansible_facts['os_family'] == "Debian"
+
+
+    - name: Install Grafana for Ubuntu
+      tags: grafana_ubuntu
+      import_role:
+        name: Grafana_ubuntu
+      when: ansible_facts['os_family'] == "Debian"
+
+    - name: Install Grafana for CentOs
+      tags: grafana_centos
+      import_role:
+        name: Grafana_centos
+      when: ansible_facts['os_family'] == "RedHat"
+
+    - name: Install Prometheus for Ubuntu
+      tags: prometheus_ubuntu
+      import_role:
+        name: Prometheus_ubuntu
+      when: ansible_facts['os_family'] == "Debian"
+
+    - name: Install Prometheus for CentOS
+      tags: prometheus_centos
+      import_role:
+        name: Prometheus_centos
+      when: ansible_facts['os_family'] == "RedHat"     
+
+    - name: Install InfluxDB for CentOS
+      tags: influx_centos
+      import_role:
+        name: Influx_centos
+      when: ansible_facts['os_family'] == "RedHat"
+    - name: Install InfluxDB for Ubuntu
+      tags: influx_ubuntu
+      import_role:
+        name: Influx_ubuntu
+      when: ansible_facts['os_family'] == "Debian"
+
+    - name: Install Httpd + PHP + MariaDB for Ubuntu
+      tags: hpm_ubuntu
+      import_role:
+        name: H-P-M_ubuntu
+      when: ansible_facts['os_family'] == "Debian"
+    - name: Install Httpd + PHP + MariaDB for CentOS
+      tags: hpm_centos
+      import_role:
+        name: H-P-M_centos
+      when: ansible_facts['os_family'] == "RedHat"
+
+

@@ -1,0 +1,14 @@
+---
+# tasks file for H-P-M_centos
+- name: Install httpd using yum
+  yum:
+    name: httpd
+    state: latest
+- name: Install php using yum
+  yum:
+    name: php
+    state: latest
+- name: Install mariadb-server using yum
+  yum:
+    name: mariadb-server
+    state: latest
